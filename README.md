@@ -1,6 +1,6 @@
 % There are source codes for a chosen-ciphertext attack which is given in
 % 'Universal chosen-ciphertext attack for a family of image encryption
-% schemes' (IEEE Transactions on Multimedia % Technology, vol **, no **, pp **-**, 2019).
+% schemes' (IEEE Transactions on Multimedia, vol **, no **, pp **-**, 2019).
 % Preliminary results can also be found in: https://arxiv.org/abs/1903.11987
 
 
