@@ -1,6 +1,6 @@
 % This is part of the source code for a chosen-ciphertext attack which is given in
 % 'Universal chosen-ciphertext attack for a family of image encryption
-% schemes' (IEEE Transactions on Multimedia % Technology, vol **, no **, pp **-**, 2019).
+% schemes' (IEEE Transactions on Multimedia, vol **, no **, pp **-**, 2019).
 % Preliminary results can also be found in: https://arxiv.org/abs/1903.11987
 
 
@@ -19,7 +19,7 @@
 
 %% Start
 clc
-clear all
+clear 
 
 
 %%  handles used in the encryption
@@ -34,7 +34,7 @@ mul_mod=@(lam,mm)uint8(mod(lam*double(mm),256));
 %% function handles of the ciphers to be cryptanalyzed
 % if you want to breack other ciphers, please change this part 
 
-% % for the basic cipher
+% for the basic cipher
 % encrypt=@(m)basic_enc_modadd(m);
 % decrypt=@(m)basic_dec_modadd(m);
 
@@ -44,27 +44,55 @@ mul_mod=@(lam,mm)uint8(mod(lam*double(mm),256));
 
 % % for Hua's cipher MIE-MA Signal Processing 144 (2018) 134每144
 % load Hua_Medical_K
-% encrypt=@(m)uint8(Hua_Hua_Medical_MA_Cipher(m,'en',K));
-% decrypt=@(m)uint8(Hua_Hua_Medical_MA_Cipher(m,'de',K));
+% encrypt=@(m)uint8(Hua_Medical_MA_Cipher_Sp2018(m,'en',K));
+% decrypt=@(m)uint8(Hua_Medical_MA_Cipher_Sp2018(m,'de',K));
 
 % for Zhou's cipher IEEE Trans. Cybern., vol. 45, no. 9, pp. 2001每2012, 2015. 
 % load Zhou_TC_K
 % encrypt=@(m)Zhou_TC_Cipher(m,'encryption',K);
 % decrypt=@(m)Zhou_TC_Cipher(m,'decryption',K);
 
-% for Hua's cipher Information Sciences 297 (2015): 80-94.
-load Hua_K;
-encrypt=@(m)Hua_ImageCipher(m,'encryption',K);
-decrypt=@(m)Hua_ImageCipher(m,'decryption',K);
+% % for Hua's cipher Information Sciences 297 (2015): 80-94.
+% load Hua_K;
+% encrypt=@(m)Hua_ImageCipher_INS2015(m,'encryption',K);
+% decrypt=@(m)Hua_ImageCipher_INS2015(m,'decryption',K);
+
+% % for Hua's cipher Signal Processing 149 (2018) 148每161
+% load Hua_K
+% encrypt=@(m)Hua_2018SP_LSC_enc(m,K);
+% decrypt=@(m)Hua_2018SP_LSC_dec(m,K);
+
+% % for Hua's cipher Information Sciences 396 (2017) 97每113
+% load Hua_K
+% encrypt=@(m)Hua_2017INS_filtering(m,'en',K);
+% decrypt=@(m)Hua_2017INS_filtering(m,'de',K);
+
+% % for Hua's cipher IEEE Access, vol. 7, pp. 8660每8674, 2019.
+% load Hua_K
+% encrypt=@(m)Hua_2019_Access(m,'encryption',K);
+% decrypt=@(m)Hua_2019_Access(m,'decryption',K);
+
+% % for Hua's cipher Information Sciences, vol. 480, pp. 403每419, 2019.
+% load Hua_K
+% encrypt=@(m)Hua_2019_Cosine(m,'en',K);
+% decrypt=@(m)Hua_2019_Cosine(m,'de',K);
+
+% % for Borujeni's cipher Mathematical Problems in Engineering
+% Volume 2009, Article ID 762652, 22 pages
+encrypt=@(m)Boru2009MPE(m,'en');
+decrypt=@(m)Boru2009MPE(m,'de');
 
 
 
 %% the ciphertext to be recovered
-mm=imread('lenna32.bmp');  % the original file to be encrypted. 
+mm=imread('lenna64.bmp');  % the original file to be encrypted. 
 % mm=imread('lenna32.bmp');  % the original file to be encrypted. 
 % mm=imread('lenna256.bmp');  % the original file to be encrypted. 
 % With respected to your computer's computational capacity, you can choose
 % files with various sizes. 
+
+% for example illustration in the paper
+% mm=[0,15,33;47,65,165;56,96,255];
 
 cc=encrypt(mm); % this is the ciphertext to be recovered
 
@@ -96,7 +124,6 @@ end
 delta_m=uint8(zeros(M_plain,N_plain));
 lam=0;
 for i=1:M
-    i
     for j=1:N  
         lam=double(cc(i,j));
         current_atom(:,:)=atom_delta_m(i,j,:,:);
@@ -108,6 +135,6 @@ crack_m=add_mod(delta_m,atom_m0);
 
 % check whether the plaintext has been accurately recovered
 dd=double(mm)-double(crack_m);
-
+nnz(dd)
 
 

@@ -1,6 +1,6 @@
 % This is part of the source code for a chosen-ciphertext attack which is given in
 % 'Universal chosen-ciphertext attack for a family of image encryption
-% schemes' (IEEE Transactions on Multimedia % Technology, vol **, no **, pp **-**, 2019).
+% schemes' (IEEE Transactions on Multimedia, vol **, no **, pp **-**, 2019).
 % Preliminary results can also be found in: https://arxiv.org/abs/1903.11987
 
 
@@ -33,9 +33,9 @@ miu=3.99976;
 x0=0.92837471;
 cat_a=33;
 cat_b=44;
-cat_counts=3;
+cat_counts=4;
 
-count=4;
+count=10;
 
 % prepositive iterations to promote the chaotic behavior of the employed chaos system  
 for j=1:300

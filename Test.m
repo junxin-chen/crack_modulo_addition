@@ -5,12 +5,12 @@ close all
 
 m=imread('lenna256.bmp');
 
-encrypt=@(m)enc_pixel_level_modadd(m);
-decrypt=@(m)dec_pixel_level_modadd(m);
-
+load Hua_K
+encrypt=@(m)Hua_2019_Cosine(m,'en',K);
+decrypt=@(m)Hua_2019_Cosine(m,'de',K);
 
 c=encrypt(m);
 d=decrypt(c);
 
 dd=double(d)-double(m);
-
+nnz(dd)
